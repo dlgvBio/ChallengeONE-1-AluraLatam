@@ -1,21 +1,59 @@
-function encriptar() {
-    const inputText = document.getElementById("inputText").value.toLowerCase();
-    const encriptado = inputText
-        .replace(/e/g, "enter")
-        .replace(/i/g, "imes")
-        .replace(/a/g, "ai")
-        .replace(/o/g, "ober")
-        .replace(/u/g, "ufat");
-    document.getElementById("output").textContent = encriptado;
+const textArea = document.querySelector(".text-area");
+const mensaje = document.querySelector(".mensaje");
+
+function btnEncriptar() {
+    const textoEncriptado = encriptar(textArea.value)
+    mensaje.value = textoEncriptado
+    textArea.value = "";
+    mensaje.style.backgroundImage = "none"
 }
 
-function desencriptar() {
-    const inputText = document.getElementById("inputText").value.toLowerCase();
-    const desencriptado = inputText
-        .replace(/enter/g, "e")
-        .replace(/imes/g, "i")
-        .replace(/ai/g, "a")
-        .replace(/ober/g, "o")
-        .replace(/ufat/g, "u");
-    document.getElementById("output").textContent = desencriptado;
+function btnDesencriptar() {
+    const textoEncriptado = desencriptar(textArea.value)
+    mensaje.value = textoEncriptado
+    textArea.value = "";
+}
+
+function encriptar(stringEncriptada) {
+    let matrizCodigo = [
+        ["e", "enter"],
+        ["i", "imes"],
+        ["a", "ai"],
+        ["0", "ober"],
+        ["u", "ufat"]
+    ];
+    stringEncriptada = stringEncriptada.toLowerCase()
+
+    for (let i = 0; i < matrizCodigo.length; i++) {
+        if (stringEncriptada.includes(matrizCodigo[i][0])) {
+            stringEncriptada = stringEncriptada.replaceAll(matrizCodigo[i][0], matrizCodigo[i][1])
+        }
+    }
+
+    return stringEncriptada
+}
+
+function desencriptar(stringDesencriptada) {
+    let matrizCodigo = [
+        ["e", "enter"],
+        ["i", "imes"],
+        ["a", "ai"],
+        ["0", "ober"],
+        ["u", "ufat"]
+    ];
+    stringDesencriptada = stringDesencriptada.toLowerCase()
+
+    for (let i = 0; i < matrizCodigo.length; i++) {
+        if (stringDesencriptada.includes(matrizCodigo[i][1])) {
+            stringDesencriptada = stringDesencriptada.replaceAll(matrizCodigo[i][1], matrizCodigo[i][0])
+        }
+    }
+
+    return stringDesencriptada
+}
+
+function copiar() {
+    const textoACopiar = mensaje.value;
+    navigator.clipboard.writeText(textoACopiar);
+    alert("¡Texto copiado!");
 }
